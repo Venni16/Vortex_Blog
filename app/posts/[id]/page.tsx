@@ -6,10 +6,29 @@ import PostCard from '@/components/PostCard';
 import CommentSection from '@/components/CommentSection';
 import { usePopup } from '@/lib/PopupContext';
 
+interface Post {
+  id: string;
+  title: string;
+  content: string;
+  image: string | null;
+  tags: string[];
+  created_at: string;
+  updated_at: string;
+  author_id: string;
+  author: {
+    id: string;
+    name: string;
+    username: string;
+    avatar: string | null;
+  };
+  likes: number;
+  comments_count: number;
+}
+
 export default function PostPage({ params }: { params: Promise<{ id: string }> }) {
   const { showAlert } = usePopup();
   const { id } = use(params);
-  const [post, setPost] = useState<any>(null);
+  const [post, setPost] = useState<Post | null>(null);
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
